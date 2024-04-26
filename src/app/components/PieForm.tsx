@@ -21,7 +21,7 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
         className="flex flex-col max-w-sm h-fit bg-secondary p-4 rounded-b-lg"
         id="create-pie-form"
       >
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200">
+        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Pie name
           <input
             type="text"
@@ -32,7 +32,7 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
             required={isEdit.edit ? false : true}
           />
         </label>
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200">
+        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Whole price
           <input
             type="number"
@@ -43,7 +43,7 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
             required={isEdit.edit ? false : true}
           />
         </label>
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200">
+        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Slice price
           <input
             type="number"
@@ -54,7 +54,7 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
             required={isEdit.edit ? false : true}
           />
         </label>
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200">
+        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Slice calories
           <input
             type="number"

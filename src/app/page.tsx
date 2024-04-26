@@ -55,7 +55,7 @@ export default function Home() {
     );
 
   return (
-    <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] bg-[#282c34] p-12 max-w-screen-xl mx-auto">
+    <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] p-12 max-w-screen-xl mx-auto">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
       {deleteMutation.isSuccess && (

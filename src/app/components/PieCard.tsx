@@ -18,7 +18,7 @@ const PieCard: React.FC<PieCardProps> = ({
   setToastLive,
 }) => {
   return (
-    <li className="card w-60 bg-base-100 shadow-lg">
+    <li className="card bg-secondary w-60 shadow-lg">
       <div className="card-body">
         <h3 className="card-title font-bold">{pie.name}</h3>
         <p className="text-base font-light">Whole Price: £{pie.wholePrice}</p>
