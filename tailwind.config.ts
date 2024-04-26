@@ -8,13 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontWeight: {
+        light: "400",
+        bold: "700",
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: ["coffee"],
+  },
+  plugins: [require("daisyui")],
 };
 export default config;
