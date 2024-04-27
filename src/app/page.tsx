@@ -14,6 +14,7 @@ import SearchBar from "./components/SearchBar";
 import PieCard from "./components/PieCard";
 import PieForm from "./components/PieForm";
 import HelperMessage from "./components/HelperMessage";
+import PieFormReactHook from "./components/PieFormReactHook";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -63,11 +64,13 @@ export default function Home() {
       )}
 
       <div className="grid grid-flow-col grid-cols-max gap-20">
-        <PieForm
+        {/* <PieForm
           isEdit={isEdit}
           setIsEdit={setIsEdit}
           isFetching={isFetching}
-        />
+        /> */}
+
+        <PieFormReactHook />
 
         <ul className="grid grid-cols-3 grid-rows-[max-content] h-fit gap-4 text-left text-white list-none">
           {pieData.data.length > 0 ? (
