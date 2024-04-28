@@ -2,21 +2,14 @@
 
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import editPie from "../types/editPie";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
-
-type FormData = {
-  pieId: number;
-  pieName: string;
-  wholePrice: number;
-  slicePrice: number;
-  sliceCalories: number;
-};
+import FormData from "../types/FormData";
+import EditPie from "../types/EditPie";
 
 interface PieFormProps {
-  isEdit: editPie;
-  setIsEdit: React.Dispatch<React.SetStateAction<editPie>>;
+  isEdit: EditPie;
+  setIsEdit: React.Dispatch<React.SetStateAction<EditPie>>;
   isFetching: boolean;
 }
 

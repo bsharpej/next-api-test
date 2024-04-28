@@ -6,7 +6,7 @@ import { APIResponseModel } from "./api/types/APIResponseModel";
 import fetchAllPies from "./api/get";
 import deletePie from "./api/delete";
 import Pie from "./types/Pie";
-import editPie from "./types/editPie";
+import editPie from "./types/EditPie";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
 import ToastMessage from "./components/ToastMessage";

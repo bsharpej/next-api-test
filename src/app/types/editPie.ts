@@ -1,8 +1,8 @@
 import Pie from "./Pie";
 
-type editPie = {
+type EditPie = {
   edit: boolean;
   pieData: Pie;
 };
 
-export default editPie;
+export default EditPie;
