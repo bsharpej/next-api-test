@@ -1,9 +1,18 @@
 "use client";
 
 import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import editPie from "../types/editPie";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
+
+type FormData = {
+  pieId: number;
+  pieName: string;
+  wholePrice: number;
+  slicePrice: number;
+  sliceCalories: number;
+};
 
 interface PieFormProps {
   isEdit: editPie;
@@ -12,157 +21,174 @@ interface PieFormProps {
 }
 
 const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit: SubmitHandler<FormData> = (data) =>
+    isEdit.edit
+      ? updatePie(
+          data.pieId,
+          data.pieName,
+          data.wholePrice,
+          data.slicePrice,
+          data.sliceCalories
+        )
+      : createPie(
+          data.pieName,
+          data.wholePrice,
+          data.slicePrice,
+          data.sliceCalories
+        );
+
   return (
     <div>
       <h2 className="text-center py-4 bg-secondary rounded-t-lg font-bold">
         {isEdit.edit ? `Edit ${isEdit.pieData.name} Pie` : "Create New Pie"}
       </h2>
-      <form
-        className="flex flex-col max-w-sm h-fit bg-secondary p-4 rounded-b-lg"
-        id="create-pie-form"
-      >
+
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Pie name
           <input
             type="text"
-            className="grow"
             placeholder={isEdit.edit ? isEdit.pieData.name : ""}
-            id="pie-name"
-            pattern="[a-zA-Z]+"
-            required={isEdit.edit ? false : true}
+            className="grow"
+            {...register("pieName", {
+              required: {
+                value: isEdit.edit ? false : true,
+                message: "Pie name is required",
+              },
+              maxLength: {
+                value: 12,
+                message: "Maximum length is 12 characters",
+              },
+              pattern: /[a-zA-Z]+/,
+            })}
           />
         </label>
+        {errors.pieName && (
+          <p className="text-red-300 text-sm text-right">
+            {errors.pieName.message}
+          </p>
+        )}
+
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Whole price
           <input
             type="number"
+            className="grow"
             placeholder={
               isEdit.edit ? isEdit.pieData.wholePrice.toString() : ""
             }
-            id="whole-price"
-            required={isEdit.edit ? false : true}
+            {...register("wholePrice", {
+              required: {
+                value: isEdit.edit ? false : true,
+                message: "Whole price is required",
+              },
+              maxLength: {
+                value: 5,
+                message: "Maximum length is 5 characters",
+              },
+              pattern: {
+                value: /^(\d+)?([.]?\d{0,2})?$/,
+                message: "Please enter a valid price",
+              },
+            })}
           />
         </label>
+        {errors.wholePrice && (
+          <p className="text-red-300 text-sm text-right">
+            {errors.wholePrice.message}
+          </p>
+        )}
+
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Slice price
           <input
             type="number"
+            className="grow"
             placeholder={
               isEdit.edit ? isEdit.pieData.slicePrice.toString() : ""
             }
-            id="slice-price"
-            required={isEdit.edit ? false : true}
+            {...register("slicePrice", {
+              required: {
+                value: isEdit.edit ? false : true,
+                message: "Slice price is required",
+              },
+              maxLength: {
+                value: 5,
+                message: "Maximum length is 5 characters",
+              },
+              pattern: {
+                value: /^(\d+)?([.]?\d{0,2})?$/,
+                message: "Please enter a valid price",
+              },
+            })}
           />
         </label>
+        {errors.slicePrice && (
+          <p className="text-red-300 text-sm text-right">
+            {errors.slicePrice.message}
+          </p>
+        )}
+
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Slice calories
           <input
             type="number"
+            className="grow"
             placeholder={
               isEdit.edit ? isEdit.pieData.sliceCalories.toString() : ""
             }
-            id="slice-calories"
-            required={isEdit.edit ? false : true}
+            {...register("sliceCalories", {
+              required: {
+                value: isEdit.edit ? false : true,
+                message: "Slice calories is required",
+              },
+              maxLength: {
+                value: 3,
+                message: "Maximum slice calories can be 999",
+              },
+            })}
           />
         </label>
+        {errors.sliceCalories && (
+          <p className="text-red-300 text-sm text-right">
+            {errors.sliceCalories.message}
+          </p>
+        )}
+
         <button
           className="btn btn-primary btn-md w-full mt-2"
           type="submit"
           disabled={isFetching ? true : false}
-          onClick={() =>
-            isEdit.edit
-              ? updatePie(
-                  isEdit.pieData.id,
-                  (document.getElementById("pie-name") as HTMLInputElement)
-                    .value.length > 0
-                    ? (document.getElementById("pie-name") as HTMLInputElement)
-                        .value
-                    : isEdit.pieData.name,
-
-                  parseInt(
-                    (document.getElementById("whole-price") as HTMLInputElement)
-                      .value
-                  ).valueOf() > 0
-                    ? parseInt(
-                        (
-                          document.getElementById(
-                            "whole-price"
-                          ) as HTMLInputElement
-                        ).value
-                      )
-                    : isEdit.pieData.wholePrice,
-
-                  parseInt(
-                    (document.getElementById("slice-price") as HTMLInputElement)
-                      .value
-                  ).valueOf() > 0
-                    ? parseInt(
-                        (
-                          document.getElementById(
-                            "slice-price"
-                          ) as HTMLInputElement
-                        ).value
-                      )
-                    : isEdit.pieData.slicePrice,
-
-                  parseInt(
-                    (
-                      document.getElementById(
-                        "slice-calories"
-                      ) as HTMLInputElement
-                    ).value
-                  ).valueOf() > 0
-                    ? parseInt(
-                        (
-                          document.getElementById(
-                            "slice-calories"
-                          ) as HTMLInputElement
-                        ).value
-                      )
-                    : isEdit.pieData.sliceCalories
-                )
-              : createPie(
-                  (document.getElementById("pie-name") as HTMLInputElement)
-                    .value,
-                  parseInt(
-                    (document.getElementById("whole-price") as HTMLInputElement)
-                      .value
-                  ),
-                  parseInt(
-                    (document.getElementById("slice-price") as HTMLInputElement)
-                      .value
-                  ),
-                  parseInt(
-                    (
-                      document.getElementById(
-                        "slice-calories"
-                      ) as HTMLInputElement
-                    ).value
-                  )
-                )
-          }
         >
-          {isEdit.edit ? "Update Pie" : "Add New Pie"}
+          {isEdit.edit ? "Update Pie" : "Create Pie"}
         </button>
-        {isEdit.edit ? (
-          <>
-            <div className="flex flex-col w-full border-opacity-50">
-              <div className="divider text-sm divider-success">OR</div>
-              <button
-                onClick={() =>
-                  setIsEdit({
-                    edit: false,
-                    pieData: isEdit.pieData,
-                  })
-                }
-                className="btn btn-md w-full mt-2"
-              >
-                Create New Pie
-              </button>
-            </div>
-          </>
-        ) : null}
       </form>
+
+      {isEdit.edit ? (
+        <>
+          <div className="flex flex-col w-full border-opacity-50">
+            <div className="divider text-sm divider-success">OR</div>
+            <button
+              type="button"
+              onClick={() =>
+                setIsEdit({
+                  edit: false,
+                  pieData: isEdit.pieData,
+                })
+              }
+              className="btn btn-primary btn-md w-full"
+            >
+              Create New Pie
+            </button>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };
