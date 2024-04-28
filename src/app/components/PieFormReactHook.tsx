@@ -12,7 +12,6 @@ export default function PieFormReactHook() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -32,26 +31,47 @@ export default function PieFormReactHook() {
           type="text"
           className="grow"
           {...register("pieName", {
-            required: true,
-            maxLength: 20,
+            required: {
+              value: true,
+              message: "Pie name is required",
+            },
+            maxLength: {
+              value: 10,
+              message: "Maximum length is 10 characters",
+            },
             pattern: /[a-zA-Z]+/,
             //   placeholder={`${isEdit.edit} ? ${isEdit.pieData.name} : ""`}
           })}
         />
-        {errors.pieName && (
-          <span>Please provide a name for the pie using letters only</span>
-        )}
       </label>
+      {errors.pieName && (
+        <p className="text-red-300 text-sm text-right">
+          {errors.pieName.message}
+        </p>
+      )}
 
       <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
         Whole price
         <input
           type="number"
           className="grow"
-          {...register("wholePrice", { required: true, maxLength: 4 })}
+          {...register("wholePrice", {
+            required: {
+              value: true,
+              message: "Whole price is required",
+            },
+            maxLength: {
+              value: 4,
+              message: "Maximum length is 4 characters",
+            },
+          })}
         />
-        {errors.wholePrice && <span>Please provide a price for the pie</span>}
       </label>
+      {errors.wholePrice && (
+        <p className="text-red-300 text-sm text-right">
+          {errors.wholePrice.message}
+        </p>
+      )}
 
       <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
         Slice price
@@ -59,14 +79,22 @@ export default function PieFormReactHook() {
           type="number"
           className="grow"
           {...register("slicePrice", {
-            required: true,
-            maxLength: 4,
+            required: {
+              value: true,
+              message: "Slice price is required",
+            },
+            maxLength: {
+              value: 4,
+              message: "Maximum length is 4 characters",
+            },
           })}
         />
-        {errors.wholePrice && (
-          <span>Please provide a slice price for the pie</span>
-        )}
       </label>
+      {errors.slicePrice && (
+        <p className="text-red-300 text-sm text-right">
+          {errors.slicePrice.message}
+        </p>
+      )}
 
       <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
         Slice calories
@@ -74,16 +102,30 @@ export default function PieFormReactHook() {
           type="number"
           className="grow"
           {...register("sliceCalories", {
-            required: true,
-            maxLength: 4,
+            required: {
+              value: true,
+              message: "Slice calories is required",
+            },
+            maxLength: {
+              value: 4,
+              message: "Maximum length is 4 characters",
+            },
           })}
         />
-        {errors.sliceCalories && (
-          <span>Please provide the calories for the pie</span>
-        )}
       </label>
+      {errors.sliceCalories && (
+        <p className="text-red-300 text-sm text-right">
+          {errors.sliceCalories.message}
+        </p>
+      )}
 
-      <input type="submit" />
+      <button
+        className="btn btn-primary btn-md w-full mt-2"
+        type="submit"
+        // disabled={isFetching ? true : false}
+      >
+        Create Pie
+      </button>
     </form>
   );
 }
