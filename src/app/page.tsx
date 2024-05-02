@@ -53,8 +53,6 @@ export default function Home() {
       <ErrorMessage errorMessage="Sorry, there was an error fetching the pies" />
     );
 
-  console.log(pieDataUpdate.status);
-
   return (
     <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] p-12 max-w-screen-xl mx-auto">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
