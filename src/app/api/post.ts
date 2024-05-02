@@ -21,7 +21,7 @@ async function createPie(
   })
     .then((response) => response.json())
     .then((data) => {
-      return data.data;
+      return data;
     });
 }
 

@@ -4,7 +4,7 @@ async function deletePie(id: number) {
   })
     .then((response) => response.json())
     .then((data) => {
-      return data.data;
+      return data;
     });
 }
 

@@ -20,7 +20,7 @@ async function updatePie(
   })
     .then((response) => response.json())
     .then((data) => {
-      return data.data;
+      return data;
     });
 }
 

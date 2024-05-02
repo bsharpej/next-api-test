@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { APIResponseModel } from "./api/types/APIResponseModel";
 import fetchAllPies from "./api/get";
-import deletePie from "./api/delete";
 import Pie from "./types/Pie";
 import editPie from "./types/EditPie";
 import LoadingAnimation from "./components/LoadingAnimation";
@@ -13,6 +12,7 @@ import SearchBar from "./components/SearchBar";
 import PieCard from "./components/PieCard";
 import PieForm from "./components/PieForm";
 import HelperMessage from "./components/HelperMessage";
+import ToastMessage from "./components/ToastMessage";
 
 export default function Home() {
   const queryClinet = useQueryClient();
@@ -53,9 +53,15 @@ export default function Home() {
       <ErrorMessage errorMessage="Sorry, there was an error fetching the pies" />
     );
 
+  console.log(pieDataUpdate.status);
+
   return (
     <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] p-12 max-w-screen-xl mx-auto">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
+      {pieDataUpdate.status === "success" ? (
+        <ToastMessage toastMessage="Pies updated!" />
+      ) : null}
 
       <div className="grid grid-flow-col grid-cols-max gap-20">
         <PieForm

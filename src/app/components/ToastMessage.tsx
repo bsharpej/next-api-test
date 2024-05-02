@@ -1,23 +1,19 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface ToastMessageProps {
-  toastLive: boolean;
-  setToastLive: React.Dispatch<React.SetStateAction<boolean>>;
   toastMessage: string;
 }
 
-const ToastMessage: React.FC<ToastMessageProps> = ({
-  toastLive,
-  setToastLive,
-  toastMessage,
-}) => {
+const ToastMessage: React.FC<ToastMessageProps> = ({ toastMessage }) => {
+  const [toastLive, setToastLive] = useState<boolean>(true);
+
   useEffect(() => {
     setTimeout(() => {
       setToastLive(false);
     }, 2000);
-  }, [toastLive]);
+  }, []);
 
   return (
     <div className={`toast toast-top z-10 ${toastLive ? "block" : "fadeOut"}`}>
