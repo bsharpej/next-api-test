@@ -2,11 +2,11 @@
 
 import React from "react";
 import Pie from "../types/Pie";
-import editPie from "../types/EditPie";
+import EditPie from "../types/EditPie";
 
 interface PieCardProps {
   pie: Pie;
-  setIsEdit: React.Dispatch<React.SetStateAction<editPie>>;
+  setIsEdit: React.Dispatch<React.SetStateAction<EditPie>>;
   setToastLive: React.Dispatch<React.SetStateAction<boolean>>;
   deleteMutation: any;
 }

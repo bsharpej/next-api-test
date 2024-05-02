@@ -29,6 +29,8 @@ export default function Home() {
     },
   });
 
+  console.log(isEdit.pieData);
+
   const deleteMutation = useMutation({
     mutationFn: (id: number) => {
       return deletePie(id);

@@ -23,11 +23,11 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
   const onSubmit: SubmitHandler<FormData> = (data) =>
     isEdit.edit
       ? updatePie(
-          data.pieId,
-          data.pieName,
-          data.wholePrice,
-          data.slicePrice,
-          data.sliceCalories
+          isEdit.pieData.id,
+          data.pieName || isEdit.pieData.name,
+          data.wholePrice || isEdit.pieData.wholePrice,
+          data.slicePrice || isEdit.pieData.slicePrice,
+          data.sliceCalories || isEdit.pieData.sliceCalories
         )
       : createPie(
           data.pieName,
@@ -71,7 +71,6 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Whole price
           <input
-            type="number"
             className="grow"
             placeholder={
               isEdit.edit ? isEdit.pieData.wholePrice.toString() : ""
@@ -101,7 +100,6 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Slice price
           <input
-            type="number"
             className="grow"
             placeholder={
               isEdit.edit ? isEdit.pieData.slicePrice.toString() : ""
