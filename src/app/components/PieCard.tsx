@@ -3,20 +3,15 @@
 import React from "react";
 import Pie from "../types/Pie";
 import EditPie from "../types/EditPie";
+import deletePie from "../api/delete";
 
 interface PieCardProps {
   pie: Pie;
   setIsEdit: React.Dispatch<React.SetStateAction<EditPie>>;
-  setToastLive: React.Dispatch<React.SetStateAction<boolean>>;
-  deleteMutation: any;
+  dataUpdate: () => void;
 }
 
-const PieCard: React.FC<PieCardProps> = ({
-  pie,
-  setIsEdit,
-  deleteMutation,
-  setToastLive,
-}) => {
+const PieCard: React.FC<PieCardProps> = ({ pie, setIsEdit, dataUpdate }) => {
   return (
     <li className="card bg-secondary w-60 shadow-lg">
       <div className="card-body">
@@ -44,7 +39,7 @@ const PieCard: React.FC<PieCardProps> = ({
           </button>
           <button
             onClick={() => {
-              return deleteMutation.mutate(pie.id), setToastLive(true);
+              return deletePie(pie.id), dataUpdate();
             }}
             className="btn btn-outline btn-xs btn-error"
           >

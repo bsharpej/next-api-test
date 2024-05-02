@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
@@ -11,30 +11,55 @@ interface PieFormProps {
   isEdit: EditPie;
   setIsEdit: React.Dispatch<React.SetStateAction<EditPie>>;
   isFetching: boolean;
+  dataUpdate: () => void;
 }
 
-const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
+const PieForm: React.FC<PieFormProps> = ({
+  isEdit,
+  setIsEdit,
+  isFetching,
+  dataUpdate,
+}) => {
   const {
     register,
     handleSubmit,
+    reset,
+    setFocus,
     formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) =>
     isEdit.edit
-      ? updatePie(
-          isEdit.pieData.id,
-          data.pieName || isEdit.pieData.name,
-          data.wholePrice || isEdit.pieData.wholePrice,
-          data.slicePrice || isEdit.pieData.slicePrice,
-          data.sliceCalories || isEdit.pieData.sliceCalories
-        )
-      : createPie(
-          data.pieName,
-          data.wholePrice,
-          data.slicePrice,
-          data.sliceCalories
-        );
+      ? (updatePieDataAndRefetchData(data), reset())
+      : (createPieAndRefetchData(data), reset());
+
+  function updatePieDataAndRefetchData(data: FormData) {
+    updatePie(
+      isEdit.pieData.id,
+      data.pieName || isEdit.pieData.name,
+      data.wholePrice || isEdit.pieData.wholePrice,
+      data.slicePrice || isEdit.pieData.slicePrice,
+      data.sliceCalories || isEdit.pieData.sliceCalories
+    ),
+      dataUpdate(),
+      setIsEdit({ edit: false, pieData: isEdit.pieData });
+  }
+
+  function createPieAndRefetchData(data: FormData) {
+    createPie(
+      data.pieName,
+      data.wholePrice,
+      data.slicePrice,
+      data.sliceCalories
+    ),
+      dataUpdate();
+  }
+
+  useEffect(() => {
+    if (isEdit.edit) {
+      setFocus("pieName");
+    }
+  });
 
   return (
     <div>
@@ -167,12 +192,13 @@ const PieForm: React.FC<PieFormProps> = ({ isEdit, setIsEdit, isFetching }) => {
             <div className="divider text-sm divider-success">OR</div>
             <button
               type="button"
-              onClick={() =>
+              onClick={() => {
                 setIsEdit({
                   edit: false,
                   pieData: isEdit.pieData,
-                })
-              }
+                }),
+                  reset();
+              }}
               className="btn btn-primary btn-md w-full"
             >
               Create New Pie
