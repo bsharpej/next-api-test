@@ -72,8 +72,6 @@ const PieForm: React.FC<PieFormProps> = ({
     }
   });
 
-  console.log(reset);
-
   return (
     <div>
       <h2 className="text-center py-4 bg-secondary rounded-t-lg font-bold">

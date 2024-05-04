@@ -26,6 +26,7 @@ export default function Home() {
       wholePrice: 0,
       slicePrice: 0,
       sliceCalories: 0,
+      dateTimeCreated: new Date(),
     },
   });
 
@@ -53,6 +54,8 @@ export default function Home() {
       <ErrorMessage errorMessage="Sorry, there was an error fetching the pies" />
     );
 
+  console.log(pieData.data);
+
   return (
     <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] p-12 max-w-screen-xl mx-auto">
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
@@ -72,7 +75,12 @@ export default function Home() {
         <ul className="grid grid-cols-3 grid-rows-[max-content] h-fit gap-4 text-left text-white list-none">
           {pieData.data.length > 0 ? (
             pieData.data
-              .sort((a, b) => b.id - a.id)
+              .sort((a: Pie, b: Pie) => {
+                return (
+                  new Date(b.dateTimeCreated).getTime() -
+                  new Date(a.dateTimeCreated).getTime()
+                );
+              })
               .map((pie: Pie) => {
                 return (
                   <PieCard

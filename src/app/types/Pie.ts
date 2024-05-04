@@ -4,6 +4,7 @@ type Pie = {
   wholePrice: number;
   slicePrice: number;
   sliceCalories: number;
+  dateTimeCreated: Date;
 };
 
 export default Pie;
