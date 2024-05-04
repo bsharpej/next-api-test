@@ -25,6 +25,7 @@ const PieForm: React.FC<PieFormProps> = ({
     handleSubmit,
     reset,
     setFocus,
+    watch,
     formState: { errors },
   } = useForm<Pie>();
 
@@ -48,6 +49,21 @@ const PieForm: React.FC<PieFormProps> = ({
   function createPieAndRefetchData(data: Pie) {
     createPie(data.name, data.wholePrice, data.slicePrice, data.sliceCalories),
       dataUpdate();
+  }
+
+  function getDisabledState() {
+    isFetching ? true : false;
+
+    if (
+      errors.name ||
+      errors.wholePrice ||
+      errors.slicePrice ||
+      errors.sliceCalories
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   useEffect(() => {
@@ -177,7 +193,7 @@ const PieForm: React.FC<PieFormProps> = ({
         <button
           className="btn btn-primary btn-md w-full mt-2"
           type="submit"
-          disabled={isFetching ? true : false}
+          disabled={getDisabledState()}
         >
           {isEdit.edit ? "Update Pie" : "Create Pie"}
         </button>
