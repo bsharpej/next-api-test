@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
-import FormData from "../types/FormData";
 import EditPie from "../types/EditPie";
+import Pie from "../types/Pie";
 
 interface PieFormProps {
   isEdit: EditPie;
@@ -26,17 +26,17 @@ const PieForm: React.FC<PieFormProps> = ({
     reset,
     setFocus,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<Pie>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) =>
+  const onSubmit: SubmitHandler<Pie> = (data) =>
     isEdit.edit
       ? (updatePieDataAndRefetchData(data), reset())
       : (createPieAndRefetchData(data), reset());
 
-  function updatePieDataAndRefetchData(data: FormData) {
+  function updatePieDataAndRefetchData(data: Pie) {
     updatePie(
       isEdit.pieData.id,
-      data.pieName || isEdit.pieData.name,
+      data.name || isEdit.pieData.name,
       data.wholePrice || isEdit.pieData.wholePrice,
       data.slicePrice || isEdit.pieData.slicePrice,
       data.sliceCalories || isEdit.pieData.sliceCalories
@@ -45,19 +45,14 @@ const PieForm: React.FC<PieFormProps> = ({
       setIsEdit({ edit: false, pieData: isEdit.pieData });
   }
 
-  function createPieAndRefetchData(data: FormData) {
-    createPie(
-      data.pieName,
-      data.wholePrice,
-      data.slicePrice,
-      data.sliceCalories
-    ),
+  function createPieAndRefetchData(data: Pie) {
+    createPie(data.name, data.wholePrice, data.slicePrice, data.sliceCalories),
       dataUpdate();
   }
 
   useEffect(() => {
     if (isEdit.edit) {
-      setFocus("pieName");
+      setFocus("name");
     }
   });
 
@@ -74,7 +69,7 @@ const PieForm: React.FC<PieFormProps> = ({
             type="text"
             placeholder={isEdit.edit ? isEdit.pieData.name : ""}
             className="grow"
-            {...register("pieName", {
+            {...register("name", {
               required: {
                 value: isEdit.edit ? false : true,
                 message: "Pie name is required",
@@ -87,9 +82,9 @@ const PieForm: React.FC<PieFormProps> = ({
             })}
           />
         </label>
-        {errors.pieName && (
+        {errors.name && (
           <p className="text-red-300 text-sm text-right">
-            {errors.pieName.message}
+            {errors.name.message}
           </p>
         )}
 
