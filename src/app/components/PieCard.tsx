@@ -19,7 +19,7 @@ const PieCard: React.FC<PieCardProps> = ({ pie, setIsEdit, dataUpdate }) => {
         <p className="text-base font-light">Whole Price: £{pie.wholePrice}</p>
         <p className="text-base">Slice Price: £{pie.slicePrice}</p>
         <p className="text-base italic">Calories: {pie.sliceCalories}</p>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-end mt-4">
           <button
             className="btn btn-xs btn-info"
             onClick={() =>
@@ -31,6 +31,7 @@ const PieCard: React.FC<PieCardProps> = ({ pie, setIsEdit, dataUpdate }) => {
                   wholePrice: pie.wholePrice,
                   slicePrice: pie.slicePrice,
                   sliceCalories: pie.sliceCalories,
+                  dateTimeCreated: pie.dateTimeCreated,
                 },
               })
             }
