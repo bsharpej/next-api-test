@@ -71,16 +71,18 @@ export default function Home() {
 
         <ul className="grid grid-cols-3 grid-rows-[max-content] h-fit gap-4 text-left text-white list-none">
           {pieData.data.length > 0 ? (
-            pieData.data.map((pie: Pie) => {
-              return (
-                <PieCard
-                  key={pie.id}
-                  pie={pie}
-                  setIsEdit={setIsEdit}
-                  dataUpdate={pieDataUpdate.mutate}
-                />
-              );
-            })
+            pieData.data
+              .sort((a, b) => b.id - a.id)
+              .map((pie: Pie) => {
+                return (
+                  <PieCard
+                    key={pie.id}
+                    pie={pie}
+                    setIsEdit={setIsEdit}
+                    dataUpdate={pieDataUpdate.mutate}
+                  />
+                );
+              })
           ) : (
             <li>
               <HelperMessage setSearchTerm={setSearchTerm} />
