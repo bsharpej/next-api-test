@@ -39,6 +39,7 @@ export default function Home() {
     data: pieData,
     isLoading,
     isError,
+    error,
     isFetching,
   } = useQuery<APIResponseModel<Pie[]>>({
     queryKey: ["pie-data", searchTerm],
@@ -47,14 +48,8 @@ export default function Home() {
 
   if (isLoading) return <LoadingAnimation />;
 
+  if (!pieData) return <ErrorMessage errorMessage={error?.message} />;
   if (isError) return <ErrorMessage errorMessage={pieData?.message} />;
-
-  if (!pieData)
-    return (
-      <ErrorMessage errorMessage="Sorry, there was an error fetching the pies" />
-    );
-
-  console.log(pieData.data);
 
   return (
     <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] p-12 max-w-screen-xl mx-auto">
