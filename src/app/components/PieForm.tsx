@@ -56,6 +56,8 @@ const PieForm: React.FC<PieFormProps> = ({
     }
   });
 
+  console.log(reset);
+
   return (
     <div>
       <h2 className="text-center py-4 bg-secondary rounded-t-lg font-bold">
@@ -192,6 +194,7 @@ const PieForm: React.FC<PieFormProps> = ({
                   edit: false,
                   pieData: isEdit.pieData,
                 }),
+                  setFocus("name"),
                   reset();
               }}
               className="btn btn-primary btn-md w-full"
