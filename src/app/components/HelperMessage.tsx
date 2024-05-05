@@ -3,10 +3,14 @@
 import React from "react";
 
 interface HelperMessageProps {
-  setSearchTerm: (term: string) => void;
+  setSortAndSearchState: React.Dispatch<
+    React.SetStateAction<{ searchTerm: string; sortBy: "newest" | "oldest" }>
+  >;
 }
 
-const HelperMessage: React.FC<HelperMessageProps> = ({ setSearchTerm }) => {
+const HelperMessage: React.FC<HelperMessageProps> = ({
+  setSortAndSearchState,
+}) => {
   return (
     <div
       role="alert"
@@ -33,7 +37,9 @@ const HelperMessage: React.FC<HelperMessageProps> = ({ setSearchTerm }) => {
       </div>
       <button
         className="btn btn-primary btn-sm text-left"
-        onClick={() => setSearchTerm("")}
+        onClick={() =>
+          setSortAndSearchState({ searchTerm: "", sortBy: "newest" })
+        }
       >
         Reset search
       </button>

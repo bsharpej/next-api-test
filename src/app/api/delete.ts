@@ -1,5 +1,5 @@
 async function deletePie(id: number) {
-  const response = await fetch(`http://localhost:3200/api/`, {
+  const response = await fetch(`http://localhost:3200/api/${id}`, {
     method: "DELETE",
   });
 
