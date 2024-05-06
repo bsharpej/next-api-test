@@ -112,7 +112,6 @@ export default function Home() {
                     key={pie.id}
                     pie={pie}
                     setIsEdit={setIsEdit}
-                    dataUpdate={pieDataUpdate.mutate}
                     deletePie={deletePieMutate.mutate}
                   />
                 );

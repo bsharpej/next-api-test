@@ -7,16 +7,10 @@ import EditPie from "../types/EditPie";
 interface PieCardProps {
   pie: Pie;
   setIsEdit: React.Dispatch<React.SetStateAction<EditPie>>;
-  dataUpdate?: () => void;
   deletePie: (id: number) => void;
 }
 
-const PieCard: React.FC<PieCardProps> = ({
-  pie,
-  setIsEdit,
-  dataUpdate,
-  deletePie,
-}) => {
+const PieCard: React.FC<PieCardProps> = ({ pie, setIsEdit, deletePie }) => {
   return (
     <li className="card bg-secondary w-60 shadow-lg">
       <div className="card-body">
