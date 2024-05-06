@@ -4,9 +4,13 @@ import React, { useEffect, useState } from "react";
 
 interface ToastMessageProps {
   toastMessage: string;
+  toastType: "success" | "error";
 }
 
-const ToastMessage: React.FC<ToastMessageProps> = ({ toastMessage }) => {
+const ToastMessage: React.FC<ToastMessageProps> = ({
+  toastMessage,
+  toastType,
+}) => {
   const [toastLive, setToastLive] = useState<boolean>(true);
 
   useEffect(() => {
@@ -17,7 +21,13 @@ const ToastMessage: React.FC<ToastMessageProps> = ({ toastMessage }) => {
 
   return (
     <div className={`toast toast-top z-10 ${toastLive ? "block" : "fadeOut"}`}>
-      <span className="alert alert-success fade">{toastMessage}</span>
+      <span
+        className={`alert ${
+          toastType === "success" ? "alert-success" : "alert-error"
+        } fade`}
+      >
+        {toastMessage}
+      </span>
     </div>
   );
 };

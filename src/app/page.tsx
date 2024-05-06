@@ -13,6 +13,7 @@ import PieCard from "./components/PieCard";
 import PieForm from "./components/PieForm";
 import HelperMessage from "./components/HelperMessage";
 import ToastMessage from "./components/ToastMessage";
+import deletePie from "./api/delete";
 
 export default function Home() {
   const queryClinet = useQueryClient();
@@ -42,6 +43,14 @@ export default function Home() {
     onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
   });
 
+  const deletePieMutate = useMutation({
+    mutationFn: (id: number) => deletePie(id),
+    onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
   const {
     data: pieData,
     isLoading,
@@ -66,7 +75,17 @@ export default function Home() {
       />
 
       {pieDataUpdate.status === "success" ? (
-        <ToastMessage toastMessage="Pies updated!" />
+        <ToastMessage toastMessage="Pies updated!" toastType="success" />
+      ) : null}
+
+      {deletePieMutate.status === "success" ? (
+        <ToastMessage toastMessage="Pie deleted!" toastType="success" />
+      ) : null}
+      {deletePieMutate.status === "error" ? (
+        <ToastMessage
+          toastMessage={deletePieMutate.error.message}
+          toastType="error"
+        />
       ) : null}
 
       <div className="grid grid-flow-col grid-cols-max gap-20">
@@ -94,6 +113,7 @@ export default function Home() {
                     pie={pie}
                     setIsEdit={setIsEdit}
                     dataUpdate={pieDataUpdate.mutate}
+                    deletePie={deletePieMutate.mutate}
                   />
                 );
               })
