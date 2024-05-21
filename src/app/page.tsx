@@ -57,7 +57,7 @@ export default function Home() {
     isFetching,
     refetch,
   } = useQuery<APIResponseModel<Pie[]>>({
-    queryKey: ["pie-data", sortAndSearchState, isEdit],
+    queryKey: ["pie-data", sortAndSearchState, isEdit.edit],
     queryFn: () => fetchAllPies(sortAndSearchState.searchTerm),
   });
 
