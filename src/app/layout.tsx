@@ -15,10 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </ReactQueryProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <header>
+          <h1 className="text-white mx-auto text-xl font-bold text-center mt-8">
+            A really useful list of Pies
+          </h1>
+        </header>
+        <ReactQueryProvider>
+          <main>{children}</main>
+        </ReactQueryProvider>
+      </body>
+    </html>
   );
 }

@@ -5,7 +5,7 @@ async function deletePie(id: number) {
 
   if (!response.ok) {
     throw new Error(
-      `Sorry, there was an ${response.statusText.toLowerCase()} deleting this pie.`
+      `Sorry, there was an ${response.statusText.toLowerCase()} error deleting this pie.`
     );
   }
 

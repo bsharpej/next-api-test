@@ -6,7 +6,7 @@ async function createPie(
   slicePrice: number,
   sliceCalories: number
 ) {
-  return fetch(`http://localhost:3200/api/`, {
+  const response = await fetch(`http://localhost:3200/api/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,11 +19,17 @@ async function createPie(
       sliceCalories: sliceCalories,
       dateTimeCreated: new Date().toISOString(),
     }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Sorry, there was an ${response.statusText.toLowerCase()} error creating this pie.`
+    );
+  }
+
+  return response.json().then((data) => {
+    return data;
+  });
 }
 
 export default createPie;

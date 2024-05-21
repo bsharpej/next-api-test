@@ -5,7 +5,7 @@ async function updatePie(
   slicePrice: number,
   sliceCalories: number
 ) {
-  return fetch(`http://localhost:3200/api/${pieId}`, {
+  const response = await fetch(`http://localhost:3200/api/${pieId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -17,11 +17,17 @@ async function updatePie(
       slicePrice: slicePrice,
       sliceCalories: sliceCalories,
     }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    });
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Sorry, there was an ${response.statusText.toLowerCase()} error updating this pie.`
+    );
+  }
+
+  return response.json().then((data) => {
+    return data;
+  });
 }
 
 export default updatePie;

@@ -30,7 +30,7 @@ const PieCard: React.FC<PieCardProps> = ({ pie, setIsEdit, deletePie }) => {
                   wholePrice: pie.wholePrice,
                   slicePrice: pie.slicePrice,
                   sliceCalories: pie.sliceCalories,
-                  dateTimeCreated: pie.dateTimeCreated,
+                  dateTimeCreatedOrEdited: pie.dateTimeCreatedOrEdited,
                 },
               })
             }

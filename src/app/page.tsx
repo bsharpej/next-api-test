@@ -14,6 +14,8 @@ import PieForm from "./components/PieForm";
 import HelperMessage from "./components/HelperMessage";
 import ToastMessage from "./components/ToastMessage";
 import deletePie from "./api/delete";
+import updatePie from "./api/patch";
+import createPie from "./api/post";
 
 export default function Home() {
   const queryClinet = useQueryClient();
@@ -34,21 +36,17 @@ export default function Home() {
       wholePrice: 0,
       slicePrice: 0,
       sliceCalories: 0,
-      dateTimeCreated: new Date(),
+      dateTimeCreatedOrEdited: new Date(),
     },
   });
 
-  const pieDataUpdate = useMutation({
-    mutationFn: () => fetchAllPies(sortAndSearchState.searchTerm),
-    onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
-  });
-
-  const deletePieMutate = useMutation({
+  const deleteMutation = useMutation({
     mutationFn: (id: number) => deletePie(id),
     onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
-    onError: (error) => {
-      console.error(error);
-    },
+  });
+
+  const dataMutation = useMutation({
+    onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
   });
 
   const {
@@ -57,8 +55,9 @@ export default function Home() {
     isError,
     error,
     isFetching,
+    refetch,
   } = useQuery<APIResponseModel<Pie[]>>({
-    queryKey: ["pie-data", sortAndSearchState],
+    queryKey: ["pie-data", sortAndSearchState, isEdit],
     queryFn: () => fetchAllPies(sortAndSearchState.searchTerm),
   });
 
@@ -68,22 +67,19 @@ export default function Home() {
   if (isError) return <ErrorMessage errorMessage={pieData?.message} />;
 
   return (
-    <main className="flex flex-col items-center justify-center text-xl text-white min-h-[100vh] p-12 max-w-screen-xl mx-auto">
+    <main className="flex flex-col items-center justify-center text-xl text-white p-12 max-w-screen-xl mx-auto">
       <SortAndSearch
         sortAndSearchState={sortAndSearchState}
         setSortAndSearchState={setSortAndSearchState}
       />
 
-      {pieDataUpdate.status === "success" ? (
-        <ToastMessage toastMessage="Pies updated!" toastType="success" />
-      ) : null}
-
-      {deletePieMutate.status === "success" ? (
+      {deleteMutation.status === "success" ? (
         <ToastMessage toastMessage="Pie deleted!" toastType="success" />
       ) : null}
-      {deletePieMutate.status === "error" ? (
+
+      {deleteMutation.status === "error" ? (
         <ToastMessage
-          toastMessage={deletePieMutate.error.message}
+          toastMessage={deleteMutation.error.message}
           toastType="error"
         />
       ) : null}
@@ -93,7 +89,7 @@ export default function Home() {
           isEdit={isEdit}
           setIsEdit={setIsEdit}
           isFetching={isFetching}
-          dataUpdate={pieDataUpdate.mutate}
+          refetchData={refetch}
         />
 
         <ul className="grid grid-cols-3 grid-rows-[max-content] h-fit gap-4 text-left text-white list-none">
@@ -101,10 +97,10 @@ export default function Home() {
             pieData.data
               .sort((a: Pie, b: Pie) => {
                 return sortAndSearchState.sortBy === "newest"
-                  ? new Date(b.dateTimeCreated).getTime() -
-                      new Date(a.dateTimeCreated).getTime()
-                  : new Date(a.dateTimeCreated).getTime() -
-                      new Date(b.dateTimeCreated).getTime();
+                  ? new Date(b.dateTimeCreatedOrEdited).getTime() -
+                      new Date(a.dateTimeCreatedOrEdited).getTime()
+                  : new Date(a.dateTimeCreatedOrEdited).getTime() -
+                      new Date(b.dateTimeCreatedOrEdited).getTime();
               })
               .map((pie: Pie) => {
                 return (
@@ -112,7 +108,7 @@ export default function Home() {
                     key={pie.id}
                     pie={pie}
                     setIsEdit={setIsEdit}
-                    deletePie={deletePieMutate.mutate}
+                    deletePie={deleteMutation.mutate}
                   />
                 );
               })

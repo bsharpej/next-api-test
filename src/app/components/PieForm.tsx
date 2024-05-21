@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, set } from "react-hook-form";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
 import EditPie from "../types/EditPie";
@@ -10,22 +10,21 @@ import Pie from "../types/Pie";
 interface PieFormProps {
   isEdit: EditPie;
   setIsEdit: React.Dispatch<React.SetStateAction<EditPie>>;
+  refetchData: () => void;
   isFetching: boolean;
-  dataUpdate: () => void;
 }
 
 const PieForm: React.FC<PieFormProps> = ({
   isEdit,
   setIsEdit,
+  refetchData,
   isFetching,
-  dataUpdate,
 }) => {
   const {
     register,
     handleSubmit,
     reset,
     setFocus,
-    watch,
     formState: { errors },
   } = useForm<Pie>();
 
@@ -42,13 +41,13 @@ const PieForm: React.FC<PieFormProps> = ({
       data.slicePrice || isEdit.pieData.slicePrice,
       data.sliceCalories || isEdit.pieData.sliceCalories
     ),
-      dataUpdate(),
+      refetchData(),
       setIsEdit({ edit: false, pieData: isEdit.pieData });
   }
 
   function createPieAndRefetchData(data: Pie) {
     createPie(data.name, data.wholePrice, data.slicePrice, data.sliceCalories),
-      dataUpdate();
+      refetchData();
   }
 
   function getDisabledState() {
@@ -74,7 +73,7 @@ const PieForm: React.FC<PieFormProps> = ({
 
   return (
     <div>
-      <h2 className="text-center py-4 bg-secondary rounded-t-lg font-bold">
+      <h2 className="text-center py-4 bg-secondary rounded-lg font-bold">
         {isEdit.edit ? `Edit ${isEdit.pieData.name} Pie` : "Create New Pie"}
       </h2>
 
@@ -165,7 +164,6 @@ const PieForm: React.FC<PieFormProps> = ({
         <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
           Slice calories
           <input
-            type="number"
             className="grow"
             placeholder={
               isEdit.edit ? isEdit.pieData.sliceCalories.toString() : ""
@@ -178,6 +176,10 @@ const PieForm: React.FC<PieFormProps> = ({
               maxLength: {
                 value: 3,
                 message: "Maximum slice calories can be 999",
+              },
+              pattern: {
+                value: /^[0-9]*$/,
+                message: "Please enter a valid number",
               },
             })}
           />

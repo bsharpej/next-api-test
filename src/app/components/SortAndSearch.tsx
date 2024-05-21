@@ -14,8 +14,8 @@ const SortAndSearch: React.FC<SortAndSearchProps> = ({
   sortAndSearchState,
 }) => {
   return (
-    <div className="w-full flex gap-4">
-      <label className="input input-bordered flex items-center gap-2 mb-4 w-full">
+    <div className="w-full flex gap-4 items-center mb-4">
+      <label className="input input-bordered flex items-center gap-2 w-full">
         <input
           type="text"
           className="grow"
