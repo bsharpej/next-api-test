@@ -33,7 +33,7 @@ const PieForm: React.FC<PieFormProps> = ({
       ? (updatePieDataAndRefetchData(data), reset())
       : (createPieAndRefetchData(data), reset());
 
-  function updatePieDataAndRefetchData(data: Pie) {
+  const updatePieDataAndRefetchData = (data: Pie) => {
     updatePie(
       isEdit.pieData.id,
       data.name || isEdit.pieData.name,
@@ -43,27 +43,20 @@ const PieForm: React.FC<PieFormProps> = ({
     ),
       refetchData(),
       setIsEdit({ edit: false, pieData: isEdit.pieData });
-  }
+  };
 
-  function createPieAndRefetchData(data: Pie) {
+  const createPieAndRefetchData = (data: Pie) => {
     createPie(data.name, data.wholePrice, data.slicePrice, data.sliceCalories),
       refetchData();
-  }
+  };
 
-  function getDisabledState() {
-    isFetching ? true : false;
-
-    if (
-      errors.name ||
-      errors.wholePrice ||
-      errors.slicePrice ||
-      errors.sliceCalories
-    ) {
-      return true;
+  const isDisabled = () => {
+    if (!errors) {
+      isFetching ? true : false;
     } else {
       return false;
     }
-  }
+  };
 
   useEffect(() => {
     if (isEdit.edit) {
@@ -193,7 +186,7 @@ const PieForm: React.FC<PieFormProps> = ({
         <button
           className="btn btn-primary btn-md w-full mt-2"
           type="submit"
-          disabled={getDisabledState()}
+          disabled={isDisabled()}
         >
           {isEdit.edit ? "Update Pie" : "Create Pie"}
         </button>
