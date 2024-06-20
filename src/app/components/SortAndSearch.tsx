@@ -4,9 +4,15 @@ import React from "react";
 
 interface SortAndSearchProps {
   setSortAndSearchState: React.Dispatch<
-    React.SetStateAction<{ searchTerm: string; sortBy: "newest" | "oldest" }>
+    React.SetStateAction<{
+      searchTerm: string;
+      sortBy: "newestCreated" | "oldestCreated";
+    }>
   >;
-  sortAndSearchState: { searchTerm: string; sortBy: "newest" | "oldest" };
+  sortAndSearchState: {
+    searchTerm: string;
+    sortBy: "newestCreated" | "oldestCreated";
+  };
 }
 
 const SortAndSearch: React.FC<SortAndSearchProps> = ({
@@ -24,7 +30,7 @@ const SortAndSearch: React.FC<SortAndSearchProps> = ({
           onChange={(e) =>
             setSortAndSearchState({
               searchTerm: e.target.value,
-              sortBy: "newest",
+              sortBy: "newestCreated",
             })
           }
           autoFocus
@@ -44,9 +50,9 @@ const SortAndSearch: React.FC<SortAndSearchProps> = ({
       </label>
       <div className="dropdown min-w-fit">
         <div tabIndex={0} role="button" className="btn m-1">
-          {sortAndSearchState.sortBy === "newest"
-            ? "Newest first"
-            : "Oldest first"}
+          {sortAndSearchState.sortBy === "newestCreated"
+            ? "Newest created"
+            : "Oldest created"}
         </div>
         <ul
           tabIndex={0}
@@ -57,11 +63,11 @@ const SortAndSearch: React.FC<SortAndSearchProps> = ({
               onClick={() =>
                 setSortAndSearchState({
                   searchTerm: sortAndSearchState.searchTerm,
-                  sortBy: "newest",
+                  sortBy: "newestCreated",
                 })
               }
             >
-              Newest first
+              Newest created
             </a>
           </li>
           <li>
@@ -69,11 +75,11 @@ const SortAndSearch: React.FC<SortAndSearchProps> = ({
               onClick={() =>
                 setSortAndSearchState({
                   searchTerm: sortAndSearchState.searchTerm,
-                  sortBy: "oldest",
+                  sortBy: "oldestCreated",
                 })
               }
             >
-              Oldest first
+              Oldest created
             </a>
           </li>
         </ul>

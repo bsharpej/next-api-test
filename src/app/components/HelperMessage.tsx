@@ -4,7 +4,10 @@ import React from "react";
 
 interface HelperMessageProps {
   setSortAndSearchState: React.Dispatch<
-    React.SetStateAction<{ searchTerm: string; sortBy: "newest" | "oldest" }>
+    React.SetStateAction<{
+      searchTerm: string;
+      sortBy: "newestCreated" | "oldestCreated";
+    }>
   >;
 }
 
@@ -38,7 +41,7 @@ const HelperMessage: React.FC<HelperMessageProps> = ({
       <button
         className="btn btn-primary btn-sm text-left"
         onClick={() =>
-          setSortAndSearchState({ searchTerm: "", sortBy: "newest" })
+          setSortAndSearchState({ searchTerm: "", sortBy: "newestCreated" })
         }
       >
         Reset search

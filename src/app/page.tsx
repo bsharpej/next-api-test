@@ -14,18 +14,16 @@ import PieForm from "./components/PieForm";
 import HelperMessage from "./components/HelperMessage";
 import ToastMessage from "./components/ToastMessage";
 import deletePie from "./api/delete";
-import updatePie from "./api/patch";
-import createPie from "./api/post";
 
 export default function Home() {
   const queryClinet = useQueryClient();
 
   const [sortAndSearchState, setSortAndSearchState] = useState<{
     searchTerm: string;
-    sortBy: "newest" | "oldest";
+    sortBy: "newestCreated" | "oldestCreated";
   }>({
     searchTerm: "",
-    sortBy: "newest",
+    sortBy: "newestCreated",
   });
 
   const [isEdit, setIsEdit] = useState<editPie>({
@@ -36,7 +34,7 @@ export default function Home() {
       wholePrice: 0,
       slicePrice: 0,
       sliceCalories: 0,
-      dateTimeCreatedOrEdited: new Date(),
+      dateTimeCreated: new Date(),
     },
   });
 
@@ -96,11 +94,11 @@ export default function Home() {
           {pieData.data.length > 0 ? (
             pieData.data
               .sort((a: Pie, b: Pie) => {
-                return sortAndSearchState.sortBy === "newest"
-                  ? new Date(b.dateTimeCreatedOrEdited).getTime() -
-                      new Date(a.dateTimeCreatedOrEdited).getTime()
-                  : new Date(a.dateTimeCreatedOrEdited).getTime() -
-                      new Date(b.dateTimeCreatedOrEdited).getTime();
+                return sortAndSearchState.sortBy === "newestCreated"
+                  ? new Date(b.dateTimeCreated).getTime() -
+                      new Date(a.dateTimeCreated).getTime()
+                  : new Date(a.dateTimeCreated).getTime() -
+                      new Date(b.dateTimeCreated).getTime();
               })
               .map((pie: Pie) => {
                 return (

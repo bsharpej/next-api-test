@@ -4,7 +4,7 @@ type Pie = {
   wholePrice: number;
   slicePrice: number;
   sliceCalories: number;
-  dateTimeCreatedOrEdited: Date;
+  dateTimeCreated: Date;
 };
 
 export default Pie;
