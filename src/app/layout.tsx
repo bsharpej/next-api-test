@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
 import { ReactQueryProvider } from "./components/ReactQueryProvider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const inter = Lato({ weight: ["300", "700"], subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         </header>
         <ReactQueryProvider>
           <main>{children}</main>
+          <ReactQueryDevtools />
         </ReactQueryProvider>
       </body>
     </html>

@@ -43,10 +43,6 @@ export default function Home() {
     onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
   });
 
-  const dataMutation = useMutation({
-    onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
-  });
-
   const {
     data: pieData,
     isLoading,

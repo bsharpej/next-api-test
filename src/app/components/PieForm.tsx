@@ -71,12 +71,16 @@ const PieForm: React.FC<PieFormProps> = ({
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
+        <label
+          id="name"
+          className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2"
+        >
           Pie name
           <input
             type="text"
             placeholder={isEdit.edit ? isEdit.pieData.name : ""}
             className="grow"
+            autoComplete="off"
             {...register("name", {
               required: {
                 value: isEdit.edit ? false : true,
@@ -96,7 +100,10 @@ const PieForm: React.FC<PieFormProps> = ({
           </p>
         )}
 
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
+        <label
+          id="wholePrice"
+          className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2"
+        >
           Whole price
           <input
             className="grow"
@@ -125,7 +132,10 @@ const PieForm: React.FC<PieFormProps> = ({
           </p>
         )}
 
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
+        <label
+          id="slicePrice"
+          className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2"
+        >
           Slice price
           <input
             className="grow"
@@ -154,7 +164,10 @@ const PieForm: React.FC<PieFormProps> = ({
           </p>
         )}
 
-        <label className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2">
+        <label
+          id="sliceCalories"
+          className="input input-bordered flex items-center gap-2 w-full text-gray-200 mt-2"
+        >
           Slice calories
           <input
             className="grow"
