@@ -25,7 +25,7 @@ export default function RootLayout({
         </header>
         <ReactQueryProvider>
           <main>{children}</main>
-          <ReactQueryDevtools />
+          {/* <ReactQueryDevtools /> */}
         </ReactQueryProvider>
       </body>
     </html>

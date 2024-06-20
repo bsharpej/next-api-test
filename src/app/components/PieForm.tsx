@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
 import EditPie from "../types/EditPie";
@@ -33,8 +33,8 @@ const PieForm: React.FC<PieFormProps> = ({
       ? (updatePieDataAndRefetchData(data), reset())
       : (createPieAndRefetchData(data), reset());
 
-  const updatePieDataAndRefetchData = (data: Pie) => {
-    updatePie(
+  const updatePieDataAndRefetchData = async (data: Pie) => {
+    await updatePie(
       isEdit.pieData.id,
       data.name || isEdit.pieData.name,
       data.wholePrice || isEdit.pieData.wholePrice,
@@ -45,8 +45,13 @@ const PieForm: React.FC<PieFormProps> = ({
       setIsEdit({ edit: false, pieData: isEdit.pieData });
   };
 
-  const createPieAndRefetchData = (data: Pie) => {
-    createPie(data.name, data.wholePrice, data.slicePrice, data.sliceCalories),
+  const createPieAndRefetchData = async (data: Pie) => {
+    await createPie(
+      data.name,
+      data.wholePrice,
+      data.slicePrice,
+      data.sliceCalories
+    ),
       refetchData();
   };
 
