@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { APIResponseModel } from "./api/types/APIResponseModel";
 import fetchAllPies from "./api/get";
 import Pie from "./types/Pie";
-import editPie from "./types/EditPie";
+import editPie from "./types/editPie";
 import LoadingAnimation from "./components/LoadingAnimation";
 import ErrorMessage from "./components/ErrorMessage";
 import SortAndSearch from "./components/SortAndSearch";

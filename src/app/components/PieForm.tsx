@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import createPie from "../api/post";
 import updatePie from "../api/patch";
-import EditPie from "../types/EditPie";
+import EditPie from "../types/editPie";
 import Pie from "../types/Pie";
 
 interface PieFormProps {

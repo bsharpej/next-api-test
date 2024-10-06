@@ -2,7 +2,7 @@
 
 import React from "react";
 import Pie from "../types/Pie";
-import EditPie from "../types/EditPie";
+import EditPie from "../types/editPie";
 
 interface PieCardProps {
   pie: Pie;
