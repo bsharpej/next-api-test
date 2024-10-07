@@ -12,7 +12,7 @@ interface PieCardProps {
 
 const PieCard: React.FC<PieCardProps> = ({ pie, setIsEdit, deletePie }) => {
   return (
-    <li className="card bg-secondary w-60 shadow-lg">
+    <li className="card bg-secondary w-60 shadow-lg" data-testid={pie.name}>
       <div className="card-body">
         <h3 className="card-title font-bold">{pie.name}</h3>
         <p className="text-base font-light">Whole Price: £{pie.wholePrice}</p>
