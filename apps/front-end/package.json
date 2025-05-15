@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "npx next build",
-    "start": "next start",
-    "lint": "next lint",
+    "start": "npx next start",
+    "lint": "npx next lint",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
