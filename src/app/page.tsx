@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { APIResponseModel } from "./api/types/APIResponseModel";
 import fetchAllPies from "./api/get";
@@ -38,7 +38,18 @@ export default function Home() {
     },
   });
 
-  const deleteMutation = useMutation({
+  const handleDelete = (id: number) => {
+    deleteMutation(id);
+    deleteMutationReset();
+  };
+
+  const {
+    mutate: deleteMutation,
+    reset: deleteMutationReset,
+    isSuccess: deleteMutationSuccess,
+    error: deleteMutationError,
+    status: deleteMutationStatus,
+  } = useMutation({
     mutationFn: (id: number) => deletePie(id),
     onSuccess: () => queryClinet.invalidateQueries({ queryKey: ["pie-data"] }),
   });
@@ -67,13 +78,13 @@ export default function Home() {
         setSortAndSearchState={setSortAndSearchState}
       />
 
-      {deleteMutation.status === "success" ? (
+      {deleteMutationSuccess === true ? (
         <ToastMessage toastMessage="Pie deleted!" toastType="success" />
       ) : null}
 
-      {deleteMutation.status === "error" ? (
+      {deleteMutationError && deleteMutationSuccess === false ? (
         <ToastMessage
-          toastMessage={deleteMutation.error.message}
+          toastMessage={deleteMutationError?.message}
           toastType="error"
         />
       ) : null}
@@ -102,7 +113,7 @@ export default function Home() {
                     key={pie.id}
                     pie={pie}
                     setIsEdit={setIsEdit}
-                    deletePie={deleteMutation.mutate}
+                    deletePie={deleteMutation}
                   />
                 );
               })
