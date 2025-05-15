@@ -1,0 +1,5 @@
+********************************************************************************
+Data: 10/7/2024
+Time: 11:12:46 AM
+Exception Info: {"status":500,"statusText":"Internal Server Error","message":"There was a error fetching pie data: next is not a function","requestInfo":{"hostname":"localhost","path":"/favicon.ico"}}
+********************************************************************************

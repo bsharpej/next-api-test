@@ -1,0 +1,50 @@
+[
+  {
+    "id": "0e86049b-5adf-4b2f-99c5-2a10f183d3c4",
+    "name": "Peach",
+    "wholePrice": "40",
+    "slicePrice": "5",
+    "sliceCalories": "250",
+    "dateTimeCreated": "2024-05-04T21:00:01.239Z"
+  },
+  {
+    "id": "bdc66891-ca54-4879-a65b-8ada7c7f96c3",
+    "name": "Blueberry",
+    "wholePrice": "50",
+    "slicePrice": "5",
+    "sliceCalories": "250",
+    "dateTimeCreated": "2024-05-04T21:14:20.934Z"
+  },
+  {
+    "id": "e4e79482-b400-47f8-a043-ff84f9ffb767",
+    "name": "Pumpkin",
+    "wholePrice": "30",
+    "slicePrice": "4",
+    "sliceCalories": "200",
+    "dateTimeCreated": "2024-05-04T21:15:02.221Z"
+  },
+  {
+    "id": "18d72875-c1a1-4662-8aea-4269a8333d85",
+    "name": "Bakewell",
+    "wholePrice": "45",
+    "slicePrice": "5",
+    "sliceCalories": "280",
+    "dateTimeCreated": "2024-05-04T21:15:49.990Z"
+  },
+  {
+    "id": "d3b7e45f-fb66-4f55-89f9-ff9f1f493c38",
+    "name": "Cherry",
+    "wholePrice": "50",
+    "slicePrice": "5",
+    "sliceCalories": "280",
+    "dateTimeCreated": "2024-10-07T09:04:30.201Z"
+  },
+  {
+    "id": "b7829d26-aea6-4de6-92ed-0164dcdebce0",
+    "name": "Apple",
+    "wholePrice": "50",
+    "slicePrice": "5",
+    "sliceCalories": "30",
+    "dateTimeCreated": "2024-11-05T16:38:33.838Z"
+  }
+]
